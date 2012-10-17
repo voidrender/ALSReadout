@@ -1,1 +1,1 @@
-This is a simple demonstration of how to read the ambient light sensors included in the bezel of a MacBook Pro and other Mac hardware.
+This is a simple demonstration of how to read the ambient light sensors included in the bezel of a MacBook Pro and other Mac hardware.  The value is output to stdout (but can be redirected, of course) whenever the ambient light sensor reading changes.
