@@ -1,1 +1,1 @@
-This is a simple demonstration of how to read the ambient light sensors include in the bezel of a MacBook Pro as well as other Mac hardware.
+This is a simple demonstration of how to read the ambient light sensors included in the bezel of a MacBook Pro and other Mac hardware.

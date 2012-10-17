@@ -1,11 +1,3 @@
-//
-//  main.c
-//  ALSReadout
-//
-//  Created by Isaac Overacker on 10/16/12.
-//  Copyright (c) 2012 Isaac Overacker. All rights reserved.
-//
-
 #include <stdio.h>
 #include <IOKit/IOKitLib.h>
 
