@@ -5,8 +5,15 @@
 #include <signal.h>
 #include <IOKit/IOKitLib.h>
 
+io_service_t service;
+io_connect_t port;
+
 static void handleCtrlC(int sig, siginfo_t* siginfo, void* context)
 {
+    IOObjectRelease(service);
+    service = IO_OBJECT_NULL;
+    IOObjectRelease(port);
+    port = IO_OBJECT_NULL;
     exit(0);
 }
 
@@ -22,11 +29,22 @@ int main(int argc, const char * argv[])
         return 1;
     }
 
-    io_service_t service = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("AppleLMUController"));
+    service = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("AppleLMUController"));
 
-    io_connect_t port = 0;
-    IOServiceOpen(service, mach_task_self(), 0, &port);
+    port = 0;
+    kern_return_t kr = KERN_FAILURE;
+    kr = IOServiceOpen(service, mach_task_self(), 0, &port);
 
+    if (kr != KERN_SUCCESS)
+    {
+        perror("Failed to open IOService.");
+        IOObjectRelease(service);
+        service = IO_OBJECT_NULL;
+        IOObjectRelease(port);
+        port = IO_OBJECT_NULL;
+        return 1;
+    }
+    
     uint32_t outputs = 2;
     uint64_t values[outputs];
 
